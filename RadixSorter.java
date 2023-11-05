@@ -90,7 +90,7 @@ class RadixSorter {
         for (int number : numbers) {
             pw.println(number);
         }
-        pw.printf("start Memory: %n%d%n", startMemory);
+        pw.printf("%nstart Memory: %d%n", startMemory);
         pw.printf("end Memory: %d%n", endMemory);
         pw.printf("start time: %d%n", startTime);
         pw.printf("end time: %d%n" , endTime);
