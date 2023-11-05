@@ -90,7 +90,7 @@ class RadixSorter {
         for (int number : numbers) {
             pw.println(number);
         }
-        pw.printf("start Memory: %d%n", startMemory);
+        pw.printf("start Memory: %n%d%n", startMemory);
         pw.printf("end Memory: %d%n", endMemory);
         pw.printf("start time: %d%n", startTime);
         pw.printf("end time: %d%n" , endTime);
@@ -101,31 +101,33 @@ class RadixSorter {
 }
 
     public static void main(String[] args) {
-
-        String filename = "reversed_100000"; // The file name
-        String outputFilename = "radix_sorter_reversed_100000.txt";
-        long startMemory, endMemory;
-        long startTime, endTime;
-
+        List<String> filenames = new ArrayList<>(Arrays.asList("sorted_1000", "sorted_10000", "sorted_100000", "random_1000",
+        "random_10000", "random_100000", "reversed_1000", "reversed_10000", "reversed_100000" ));
+        for (String file : filenames ){
+            String filename = "dataset_input/" + file; // The file name
+            String outputFilename = "output_radixsort/radix_sorter_" + file + ".txt";
+            long startMemory, endMemory;
+            long startTime, endTime;
         
-        int[] sortedArray = readNumbersFromFile(filename);
-        int size = sortedArray.length;
+            int[] sortedArray = readNumbersFromFile(filename);
+            int size = sortedArray.length;
 
-        RadixSorter rs = new RadixSorter();
-                
-        startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-        startTime = System.nanoTime();
-        rs.radixSort(sortedArray, size);
-        endTime = System.nanoTime();
-        endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            RadixSorter rs = new RadixSorter();
+                    
+            startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            startTime = System.nanoTime();
+            rs.radixSort(sortedArray, size);
+            endTime = System.nanoTime();
+            endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
-        writeNumbersToFile(outputFilename, sortedArray,startMemory, endMemory, startMemory, endTime);
+            writeNumbersToFile(outputFilename, sortedArray,startMemory, endMemory, startTime, endTime);
 
-        System.out.printf("%s%n", outputFilename);
-        System.out.printf("start Memory: %d%n",startMemory);
-        System.out.printf("end Memory: %d%n", endMemory);
-        System.out.printf("start time: %d%n", startTime);
-        System.out.printf("end time: %d%n" , endTime);
+            System.out.printf("%n%s%n", outputFilename);
+            System.out.printf("start Memory: %d%n",startMemory);
+            System.out.printf("end Memory: %d%n", endMemory);
+            System.out.printf("start time: %d%n", startTime);
+            System.out.printf("end time: %d%n" , endTime);
+        }
     }
 
 }

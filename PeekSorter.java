@@ -121,7 +121,7 @@ public class PeekSorter{
             for (int number : numbers) {
                 pw.println(number);
             }
-            pw.printf("start Memory: %d%n", startMemory);
+            pw.printf("start Memory: %n%d%n", startMemory);
             pw.printf("end Memory: %d%n", endMemory);
             pw.printf("start time: %d%n", startTime);
             pw.printf("end time: %d%n" , endTime);
@@ -132,29 +132,32 @@ public class PeekSorter{
     }
 
     public static void main(String[] args) {
+        List<String> filenames = new ArrayList<>(Arrays.asList("sorted_1000", "sorted_10000", "sorted_100000", "random_1000",
+        "random_10000", "random_100000", "reversed_1000", "reversed_10000", "reversed_100000" ));
+        for (String file : filenames ){
+            String filename = "dataset_input/" + file; // The file name
+            String outputFilename = "output_peeksort/peek_sorter_" + file + ".txt";
+            long startMemory, endMemory;
+            long startTime, endTime;
 
-        String filename = "reversed_100000"; // The file name
-        String outputFilename = "peek_sorter_reversed_100000.txt";
-        long startMemory, endMemory;
-        long startTime, endTime;
+        
+            int[] sortedArray = readNumbersFromFile(filename);
 
-       
-        int[] sortedArray = readNumbersFromFile(filename);
+            PeekSorter sorter = new PeekSorter();
+                    
+            startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            startTime = System.nanoTime();
+            sorter.peeksort(sortedArray, 0, sortedArray.length - 1);
+            endTime = System.nanoTime();
+            endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 
-        PeekSorter sorter = new PeekSorter();
-                
-        startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-        startTime = System.nanoTime();
-        sorter.peeksort(sortedArray, 0, sortedArray.length - 1);
-        endTime = System.nanoTime();
-        endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+            writeNumbersToFile(outputFilename, sortedArray,startMemory, endMemory, startTime, endTime);
 
-        writeNumbersToFile(outputFilename, sortedArray,startMemory, endMemory, startMemory, endTime);
-
-        System.out.printf("%s%n", outputFilename);
-        System.out.printf("start Memory: %d%n",startMemory);
-        System.out.printf("end Memory: %d%n", endMemory);
-        System.out.printf("start time: %d%n", startTime);
-        System.out.printf("end time: %d%n" , endTime);
+            System.out.printf("%n%s%n", outputFilename);
+            System.out.printf("start Memory: %d%n",startMemory);
+            System.out.printf("end Memory: %d%n", endMemory);
+            System.out.printf("start time: %d%n", startTime);
+            System.out.printf("end time: %d%n" , endTime);
+        }
     }
 }

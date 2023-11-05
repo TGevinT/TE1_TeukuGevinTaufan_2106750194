@@ -9998,7 +9998,8 @@
 9998
 9999
 10000
-start Memory: 3078192
-end Memory: 3078192
-start time: 3078192
-end time: 301705160100700
+start Memory: 
+17083112
+end Memory: 17083112
+start time: 316142024129800
+end time: 316142026087400
